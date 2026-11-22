@@ -88,4 +88,4 @@
 ### 步骤 7：前端展示
 ![alt text](1.jpg)
 ![alt text](2.jpg)
-![alt text](2-1.jpg)
+![alt text](3.jpg)
