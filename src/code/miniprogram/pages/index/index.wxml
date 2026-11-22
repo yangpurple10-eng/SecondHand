@@ -1,0 +1,76 @@
+<!--index.wxml-->
+<view class="page-container">
+  <view class="login-container">
+  <!-- 顶部logo和标题 -->
+  <view class="header">
+    <image class="logo" src="https://ts1.tc.mm.bing.net/th/id/R-C.0c942a1a8df6bb32de224a7c78c3af92?rik=SEx%2b%2fzYxnPfqwg&riu=http%3a%2f%2fyuanxiao.mpacc.cc%2fuploadfile%2f2022%2f1109%2f20221109052556257.png&ehk=%2bVL02gwPQzun0%2fzDFjxp5xUoH005t%2bS57Qff156jez8%3d&risl=&pid=ImgRaw&r=0" mode="aspectFit"></image>
+    <text class="title">校园二手交易</text>
+    <text class="subtitle">安全便捷的校园交易平台</text>
+  </view>
+  
+  <!-- 登录表单 -->
+  <view class="login-form">
+    <view class="form-group">
+      <text class="label">学号/手机号</text>
+      <input 
+        class="input" 
+        type="number" 
+        placeholder="请输入学号或手机号" 
+        bindinput="onInputStudentId"
+        value="{{studentId}}"
+      />
+    </view>
+    
+    <view class="form-group">
+      <text class="label">密码</text>
+      <input 
+        class="input" 
+        type="password" 
+        placeholder="请输入密码" 
+        bindinput="onInputPassword"
+        value="{{password}}"
+        password
+      />
+    </view>
+    
+    <!-- 登录按钮 -->
+    <button 
+      class="login-btn {{isLoginDisabled ? 'disabled' : ''}}" 
+      bindtap="onLogin"
+      disabled="{{isLoginDisabled}}"
+    >
+      登录
+    </button>
+    
+    <!-- 注册链接 -->
+    <view class="register-link">
+      <text>还没有账号？</text>
+      <text class="link" bindtap="onRegister">立即注册</text>
+    </view>
+    
+    <!-- 忘记密码 -->
+    <view class="forgot-password">
+      <text class="link" bindtap="onForgotPassword">忘记密码？</text>
+    </view>
+    
+    <!-- 管理员登录入口 -->
+    <view class="admin-login-link">
+      <text class="link" bindtap="onAdminLogin">管理员登录</text>
+    </view>
+  </view>
+  
+  <!-- 快速登录选项 -->
+  <view class="quick-login">
+    <view class="divider">
+      <text class="divider-text">或使用以下方式登录</text>
+    </view>
+    
+    <view class="quick-login-buttons">
+      <button class="quick-btn wechat" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber">
+        <image class="quick-icon" src="https://via.placeholder.com/40x40/07C160/ffffff?text=W" mode="aspectFit"></image>
+        <text>微信一键登录</text>
+      </button>
+    </view>
+  </view>
+</view>
+</view>

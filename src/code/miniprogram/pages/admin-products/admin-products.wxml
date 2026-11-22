@@ -1,0 +1,54 @@
+<!--pages/admin-products/admin-products.wxml-->
+<view class="page-container">
+  <!-- 顶部搜索栏 -->
+  <view class="search-header">
+    <view class="search-bar">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索商品名称..." value="{{keyword}}" bindinput="onSearchInput" bindconfirm="onSearch"/>
+    </view>
+    <view class="add-btn" bindtap="onAddProduct">
+      <text>➕</text>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <scroll-view class="product-list" scroll-y="true" refresher-enabled="{{true}}" refresher-triggered="{{refreshing}}" bindrefresherrefresh="onRefresh" bindscrolltolower="onLoadMore">
+    <view class="product-item" wx:for="{{products}}" wx:key="_id">
+    <image class="product-image" src="{{item.productImage ? (Array.isArray(item.productImage) ? item.productImage[0] : item.productImage) : 'https://via.placeholder.com/600x400/cccccc/666666?text=商品图'}}" mode="aspectFill"></image>
+      <view class="product-info">
+        <text class="product-name">{{item.productName}}</text>
+        <text class="product-price">¥{{item.salePrice || item.suggestedPrice || 0}}</text>
+        <view class="product-meta">
+          <text class="product-category">{{item.productCategory || '其他'}}</text>
+          <text class="product-status {{item.status === '在售' ? 'on-sale' : 'off-sale'}}">{{item.status || '未知'}}</text>
+        </view>
+        <text class="product-time">发布时间: {{item.timeText}}</text>
+      </view>
+      <view class="product-actions">
+        <view class="action-btn edit" bindtap="onEditProduct" data-id="{{item._id}}">编辑</view>
+        <view class="action-btn {{item.status === '在售' ? 'offline' : 'online'}}" bindtap="onToggleStatus" data-id="{{item._id}}" data-status="{{item.status}}">
+          {{item.status === '在售' ? '下架' : '上架'}}
+        </view>
+      </view>
+    </view>
+
+    <view class="load-more" wx:if="{{hasMore && !loading}}">
+      <text>加载中...</text>
+    </view>
+    <view class="no-more" wx:if="{{!hasMore && products.length > 0}}">
+      <text>没有更多了</text>
+    </view>
+
+    <view class="empty-state" wx:if="{{!loading && products.length === 0}}">
+      <text class="empty-icon">📦</text>
+      <text class="empty-text">暂无商品</text>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 加载状态 -->
+<view class="loading-container" wx:if="{{loading && products.length === 0}}">
+  <view class="loading-content">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>

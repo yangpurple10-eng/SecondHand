@@ -1,0 +1,41 @@
+<view class="cart-page">
+  <view class="cart-header">
+    <text class="title">购物车</text>
+    <text class="count" wx:if="{{items.length > 0}}">共 {{items.length}} 件</text>
+  </view>
+
+  <view wx:if="{{items.length === 0}}" class="empty">
+    <text>购物车空空如也，去逛逛吧～</text>
+    <button class="go-btn" bindtap="goShopping">去购物</button>
+  </view>
+
+  <scroll-view wx:if="{{items.length > 0}}" scroll-y="true" class="list">
+    <view class="item" wx:for="{{items}}" wx:key="id" data-index="{{index}}" bindtap="onItemTap" data-id="{{item.id}}">
+      <image class="thumb" src="{{item.image}}" mode="aspectFill" />
+      <view class="info">
+        <text class="name">{{item.name}}</text>
+        <text class="category">{{item.category}}</text>
+        <view class="price-line">
+          <text class="price">¥{{item.price}}</text>
+          <view class="qty">
+            <button class="minus" catchtap="decQty" data-index="{{index}}">-</button>
+            <text class="num">{{item.count}}</text>
+            <button class="plus" catchtap="incQty" data-index="{{index}}">+</button>
+          </view>
+        </view>
+        <button class="remove" catchtap="removeItem" data-index="{{index}}">移除</button>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view wx:if="{{items.length > 0}}" class="bottom-bar">
+    <view class="total">
+      <text>合计：</text>
+      <text class="total-price">¥{{totalPrice}}</text>
+    </view>
+    <view class="actions">
+      <button class="clear-btn" bindtap="clearCart">清空</button>
+      <button class="checkout-btn" bindtap="checkout">去结算</button>
+    </view>
+  </view>
+</view>

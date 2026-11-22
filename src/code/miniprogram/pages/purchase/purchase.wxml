@@ -1,0 +1,225 @@
+<!-- 发布求购页面 -->
+<view class="purchase-container">
+
+
+  <!-- 求购商品信息 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">求购商品信息</text>
+    </view>
+    <view class="info-group">
+      <view class="info-item">
+        <text class="info-label">商品名称</text>
+        <input 
+          type="text" 
+          placeholder="请输入您想购买的商品名称" 
+          value="{{productName}}" 
+          bindinput="onProductNameInput"
+          class="info-input"
+          placeholder-class="placeholder"
+        />
+      </view>
+      <view class="info-item">
+        <text class="info-label">商品类别</text>
+        <picker 
+          range="{{categories}}" 
+          value="{{categoryIndex}}" 
+          bindchange="onCategoryChange"
+          class="category-picker"
+        >
+          <view class="picker-display">
+            <text class="picker-text">{{categories[categoryIndex] || '请选择商品类别'}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+      <!-- 发布建议（基于分类供需） -->
+      <view class="recommend-section" wx:if="{{recommendedCategories.length > 0 || recommendMessage}}">
+        <text class="recommend-message">{{recommendMessage || '暂无建议'}}</text>
+        <view class="recommend-chips">
+          <view class="recommend-chip" wx:for="{{recommendedCategories}}" wx:key="cat" bindtap="onSelectRecommendedCategory" data-category="{{item}}">
+            <text class="chip-text">{{item}}</text>
+          </view>
+        </view>
+      </view>
+      <view class="info-item">
+        <text class="info-label">求购描述</text>
+        <textarea 
+          placeholder="请详细描述您的求购需求（品牌、型号、规格等）" 
+          value="{{purchaseDescription}}" 
+          bindinput="onDescriptionInput"
+          class="description-textarea"
+          placeholder-class="placeholder"
+          maxlength="300"
+          auto-height
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 求购要求 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">求购要求</text>
+    </view>
+    <view class="requirement-group">
+      <view class="requirement-item">
+        <text class="requirement-label">期望价格</text>
+        <view class="price-input-container">
+          <text class="currency-symbol">¥</text>
+          <input 
+            type="digit" 
+            placeholder="请输入期望价格" 
+            value="{{expectedPrice}}" 
+            bindinput="onExpectedPriceInput"
+            class="price-input"
+            placeholder-class="placeholder"
+          />
+        </view>
+      </view>
+      <view class="requirement-item">
+        <text class="requirement-label">成色要求</text>
+        <picker 
+          range="{{conditionLevels}}" 
+          value="{{conditionIndex}}" 
+          bindchange="onConditionChange"
+          class="condition-picker"
+        >
+          <view class="picker-display">
+            <text class="picker-text">{{conditionLevels[conditionIndex] || '请选择成色要求'}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+      <view class="requirement-item">
+        <text class="requirement-label">期望品牌</text>
+        <input 
+          type="text" 
+          placeholder="请输入期望品牌（可选）" 
+          value="{{expectedBrand}}" 
+          bindinput="onBrandInput"
+          class="brand-input"
+          placeholder-class="placeholder"
+        />
+      </view>
+      <view class="requirement-item">
+        <text class="requirement-label">期望型号</text>
+        <input 
+          type="text" 
+          placeholder="请输入期望型号（可选）" 
+          value="{{expectedModel}}" 
+          bindinput="onModelInput"
+          class="model-input"
+          placeholder-class="placeholder"
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 求购时间 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">求购时间</text>
+    </view>
+    <view class="time-group">
+      <view class="time-item">
+        <text class="time-label">期望到货时间</text>
+        <picker 
+          mode="date" 
+          value="{{expectedDate}}" 
+          bindchange="onDateChange"
+          class="date-picker"
+        >
+          <view class="picker-display">
+            <text class="picker-text">{{expectedDate || '请选择期望到货时间'}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+      <view class="time-item">
+        <text class="time-label">求购有效期</text>
+        <picker 
+          range="{{validityPeriods}}" 
+          value="{{validityIndex}}" 
+          bindchange="onValidityChange"
+          class="validity-picker"
+        >
+          <view class="picker-display">
+            <text class="picker-text">{{validityPeriods[validityIndex] || '请选择有效期'}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 联系方式 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">联系方式</text>
+    </view>
+    <view class="contact-group">
+      <view class="contact-item">
+        <text class="contact-label">联系人</text>
+        <input 
+          type="text" 
+          placeholder="请输入您的姓名" 
+          value="{{contactName}}" 
+          bindinput="onContactNameInput"
+          class="contact-input"
+          placeholder-class="placeholder"
+        />
+      </view>
+      <view class="contact-item">
+        <text class="contact-label">手机号码</text>
+        <input 
+          type="number" 
+          placeholder="请输入手机号码" 
+          value="{{contactPhone}}" 
+          bindinput="onContactPhoneInput"
+          class="phone-input"
+          placeholder-class="placeholder"
+          maxlength="11"
+        />
+      </view>
+      <view class="contact-item">
+        <text class="contact-label">微信号</text>
+        <input 
+          type="text" 
+          placeholder="请输入微信号（可选）" 
+          value="{{contactWechat}}" 
+          bindinput="onWechatInput"
+          class="wechat-input"
+          placeholder-class="placeholder"
+        />
+      </view>
+      <view class="contact-item">
+        <text class="contact-label">交易方式</text>
+        <picker 
+          range="{{tradeMethods}}" 
+          value="{{tradeMethodIndex}}" 
+          bindchange="onTradeMethodChange"
+          class="trade-picker"
+        >
+          <view class="picker-display">
+            <text class="picker-text">{{tradeMethods[tradeMethodIndex] || '请选择交易方式'}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 发布按钮 -->
+  <view class="publish-actions">
+    <button 
+      class="publish-btn {{isPublishing ? 'disabled' : ''}}" 
+      catchtap="onPublish"
+      disabled="{{isPublishing}}"
+      loading="{{isPublishing}}"
+    >
+      {{isPublishing ? '发布中...' : '确认发布求购'}}
+    </button>
+    <button class="back-btn" bindtap="onBack" disabled="{{isPublishing}}">取消</button>
+  </view>
+</view>

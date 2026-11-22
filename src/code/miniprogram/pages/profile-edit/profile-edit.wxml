@@ -1,0 +1,54 @@
+<!--pages/profile-edit/profile-edit.wxml-->
+<view class="page-container">
+  <view class="form-container">
+    <!-- 头像 -->
+    <view class="form-item">
+      <text class="form-label">头像</text>
+      <view class="avatar-section">
+        <image class="avatar" src="{{userInfo.avatar || avatarTemp || 'https://via.placeholder.com/80x80/cccccc/ffffff?text=U'}}" mode="aspectFill"></image>
+        <button class="change-avatar-btn" bindtap="chooseAvatar">更换头像</button>
+      </view>
+    </view>
+
+    <!-- 昵称 -->
+    <view class="form-item">
+      <text class="form-label">昵称</text>
+      <input class="form-input" placeholder="请输入昵称" value="{{userInfo.nickName}}" bindinput="onNickNameInput" maxlength="20" />
+    </view>
+
+    <!-- 手机号 -->
+    <view class="form-item">
+      <text class="form-label">手机号</text>
+      <input class="form-input" type="number" placeholder="请输入手机号" value="{{userInfo.phone}}" bindinput="onPhoneInput" maxlength="11" />
+    </view>
+
+    <!-- 专业 -->
+    <view class="form-item">
+      <text class="form-label">专业</text>
+      <input class="form-input" placeholder="请输入专业" value="{{userInfo.major}}" bindinput="onMajorInput" maxlength="50" />
+    </view>
+
+    <!-- 年级 -->
+    <view class="form-item">
+      <text class="form-label">年级</text>
+      <picker mode="selector" range="{{grades}}" value="{{gradeIndex}}" bindchange="onGradeChange">
+        <view class="picker-view">
+          <text wx:if="{{userInfo.grade}}">{{userInfo.grade}}</text>
+          <text wx:else class="placeholder">请选择年级</text>
+        </view>
+      </picker>
+    </view>
+
+    <!-- 宿舍 -->
+    <view class="form-item">
+      <text class="form-label">宿舍</text>
+      <input class="form-input" placeholder="请输入宿舍信息" value="{{userInfo.dorm}}" bindinput="onDormInput" maxlength="50" />
+    </view>
+  </view>
+
+  <!-- 保存按钮 -->
+  <view class="button-section">
+    <button class="save-btn" bindtap="saveProfile">保存</button>
+  </view>
+</view>
+

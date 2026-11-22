@@ -1,0 +1,74 @@
+<!--pages/interests/interests.wxml-->
+<view class="page-container">
+  <view class="interests-container">
+    <!-- 顶部引导信息 -->
+    <view class="header">
+      <view class="welcome-icon-wrapper">
+        <text class="welcome-emoji">🎯</text>
+      </view>
+      <text class="title">欢迎来到校园二手交易平台！</text>
+      <text class="question">请选择您感兴趣的商品类别</text>
+      <text class="subtitle">我们将根据您的选择为您推荐相关商品</text>
+    </view>
+    
+    <!-- 商品类别选择区域 -->
+    <view class="interests-section">
+      <text class="section-title">选择您感兴趣的商品类别</text>
+      <text class="section-subtitle">（最多选择2个，用于个性化商品推荐）</text>
+      
+      <view class="interests-grid">
+        <view 
+          class="interest-card {{categorySelectedMap[category.id] ? 'selected' : ''}}"
+          wx:for="{{categories}}" 
+          wx:key="id"
+          wx:for-item="category"
+          catchtap="onCategoryTap"
+          data-id="{{category.id}}"
+          hover-class="none"
+          hover-stop-propagation="true"
+        >
+          <view class="interest-icon-wrapper">
+            <text class="interest-icon">{{category.icon}}</text>
+          </view>
+          <text class="interest-name">{{category.name}}</text>
+          <text class="interest-desc">{{category.description}}</text>
+        </view>
+      </view>
+      
+      <!-- 调试信息：如果类别为空，显示提示 -->
+      <view wx:if="{{categories.length === 0}}" class="empty-tip">
+        <text>正在加载类别...</text>
+      </view>
+    </view>
+    
+    <!-- 选择提示 -->
+    <view class="selection-hint" wx:if="{{selectedInterests.length > 0}}">
+      <text class="hint-text">已选择 {{selectedInterests.length}}/2 个商品类别</text>
+      <text class="hint-tip">系统将根据您的选择为您推荐相关商品</text>
+    </view>
+    
+    <!-- 底部操作按钮 -->
+    <view class="action-buttons">
+      <button 
+        class="skip-btn" 
+        bindtap="onSkip"
+        wx:if="{{selectedInterests.length === 0}}"
+      >
+        暂时跳过
+      </button>
+      
+      <button 
+        class="confirm-btn {{selectedInterests.length === 0 ? 'disabled' : ''}}" 
+        bindtap="onConfirm"
+        disabled="{{selectedInterests.length === 0}}"
+      >
+        {{selectedInterests.length === 0 ? '请至少选择一个' : '完成选择 (' + selectedInterests.length + ')'}}
+      </button>
+    </view>
+    
+    <!-- 进度提示 -->
+    <view class="progress-hint">
+      <text class="progress-text">完成此步骤后，即可开始使用平台</text>
+    </view>
+  </view>
+</view>

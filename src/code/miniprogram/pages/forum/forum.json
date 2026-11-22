@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "校园论坛",
+  "navigationBarBackgroundColor": "#4285F4",
+  "navigationBarTextStyle": "white",
+  "backgroundColor": "#f5f5f5",
+  "enablePullDownRefresh": true
+}
+

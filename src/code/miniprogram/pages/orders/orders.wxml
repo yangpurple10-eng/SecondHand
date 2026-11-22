@@ -1,0 +1,101 @@
+<!--pages/orders/orders.wxml-->
+<view class="orders-container">
+  <!-- 视角切换 -->
+  <view class="role-tabs">
+    <view class="role-tab {{viewRole === 'buyer' ? 'active' : ''}}" bindtap="switchRole" data-role="buyer">我的购买</view>
+    <view class="role-tab {{viewRole === 'seller' ? 'active' : ''}}" bindtap="switchRole" data-role="seller">我的出售</view>
+  </view>
+  <!-- 订单状态筛选标签 -->
+  <view class="order-tabs">
+    <view class="tab-item {{activeTab === 'all' ? 'active' : ''}}" bindtap="switchTab" data-tab="all">全部</view>
+    <view class="tab-item {{activeTab === 'pending' ? 'active' : ''}}" bindtap="switchTab" data-tab="pending">待付款</view>
+    <view class="tab-item {{activeTab === 'paid' ? 'active' : ''}}" bindtap="switchTab" data-tab="paid">待发货</view>
+    <view class="tab-item {{activeTab === 'shipped' ? 'active' : ''}}" bindtap="switchTab" data-tab="shipped">待收货</view>
+    <view class="tab-item {{activeTab === 'completed' ? 'active' : ''}}" bindtap="switchTab" data-tab="completed">已完成</view>
+    <view class="tab-item {{activeTab === 'cancelled' ? 'active' : ''}}" bindtap="switchTab" data-tab="cancelled">已取消</view>
+  </view>
+
+  <!-- 订单列表 -->
+  <view class="order-list">
+    <!-- 加载状态 -->
+    <view wx:if="{{isLoading}}" class="loading-container">
+      <view class="loading-spinner"></view>
+      <text class="loading-text">加载中...</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view wx:elif="{{orders.length === 0 && !isLoading}}" class="empty-container">
+  <image class="empty-icon" src="https://via.placeholder.com/200x200/E0E0E0/999999?text=暂无订单" mode="aspectFit"></image>
+      <text class="empty-text">暂无订单</text>
+      <text class="empty-subtext">去逛逛，发现心仪商品</text>
+      <button class="go-shopping-btn" bindtap="goShopping">去购物</button>
+    </view>
+
+    <!-- 订单列表 -->
+    <block wx:else>
+      <view wx:for="{{orders}}" wx:key="id" class="order-item">
+        <!-- 订单头部 -->
+        <view class="order-header">
+          <view class="order-info">
+            <text class="order-number">订单号：{{item.orderNumber}}</text>
+            <text class="order-time">{{item.orderTime}}</text>
+          </view>
+          <text class="order-status {{item.status}}">{{item.statusText}}</text>
+        </view>
+
+        <!-- 订单商品 -->
+        <view class="order-products">
+          <view wx:for="{{item.products}}" wx:for-item="product" wx:key="productId" class="product-item">
+      <image class="product-image" src="{{product.image || 'https://via.placeholder.com/600x400/cccccc/666666?text=商品图'}}" mode="aspectFit"></image>
+            <view class="product-info">
+              <text class="product-name">{{product.name}}</text>
+              <text class="product-specs">{{product.specs || '规格：标准'}}</text>
+              <view class="product-price-count">
+                <text class="product-price">¥{{product.price}}</text>
+                <text class="product-count">x{{product.count}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 订单尾部 -->
+        <view class="order-footer">
+          <view class="order-total">
+            <view class="total-info">
+              <text class="total-label">共{{item.totalCount}}件商品</text>
+            </view>
+            <view class="price-container">
+              <text class="total-price-label">合计：</text>
+              <text class="currency-symbol">¥</text>
+              <text class="total-price-value">{{item.totalPrice}}</text>
+            </view>
+          </view>
+          
+          <view class="order-actions">
+            <!-- 卖家视角操作 -->
+            <block wx:if="{{viewRole==='seller'}}">
+              <button wx:if="{{item.statusText==='待卖家确认'}}" class="action-btn primary" bindtap="confirmPayment" data-id="{{item.id}}">确认收款</button>
+              <button wx:if="{{item.statusText==='待发货'}}" class="action-btn primary" bindtap="shipOrder" data-id="{{item.id}}">发货</button>
+            </block>
+            <!-- 买家视角操作 -->
+            <button wx:if="{{viewRole==='buyer' && item.status === 'pending'}}" class="action-btn secondary" bindtap="cancelOrder" data-id="{{item.id}}">
+              取消订单
+            </button>
+            <button wx:if="{{viewRole==='buyer' && item.status === 'pending'}}" class="action-btn primary" bindtap="payOrder" data-id="{{item.id}}">
+              去付款
+            </button>
+            <button wx:if="{{viewRole==='buyer' && item.status === 'shipped'}}" class="action-btn primary" bindtap="confirmReceipt" data-id="{{item.id}}">
+              确认收货
+            </button>
+            <button wx:if="{{item.status === 'completed' || item.status === 'cancelled'}}" class="action-btn secondary" bindtap="viewOrderDetail" data-id="{{item.id}}">
+              查看详情
+            </button>
+            <button wx:if="{{item.status === 'completed'}}" class="action-btn secondary" bindtap="buyAgain" data-id="{{item.id}}">
+              再次购买
+            </button>
+          </view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,137 @@
+<!-- pages/pricing/pricing.wxml -->
+<view class="page-container">
+  
+  <!-- 商品上传模块 -->
+  <view class="upload-section">
+    <view class="section-header">
+      <text class="section-title">商品上传</text>
+      <text class="section-subtitle">上传商品图片进行AI智能定价</text>
+    </view>
+    
+    <!-- 图片上传区域 -->
+    <view class="upload-area">
+      <view class="image-preview" bindtap="onChooseImage">
+        <view class="preview-content" wx:if="{{imagePath}}">
+          <image class="preview-image" src="{{imagePath}}" mode="aspectFit"></image>
+          <view class="preview-overlay">
+            <text class="preview-text">点击更换图片</text>
+          </view>
+        </view>
+        <view class="upload-placeholder" wx:else>
+          <image class="camera-icon" src="https://via.placeholder.com/80x80/888888/ffffff?text=IMG" mode="aspectFit"></image>
+          <text class="placeholder-text">点击上传商品图片</text>
+          <text class="placeholder-hint">支持 JPG、PNG 格式</text>
+        </view>
+      </view>
+      
+      <!-- 原价输入区域 -->
+      <view class="original-price-section">
+        <view class="price-input-container">
+          <text class="price-label">商品原价</text>
+          <view class="price-input-group">
+            <text class="price-symbol">¥</text>
+            <input 
+              class="price-input" 
+              type="digit" 
+              placeholder="0.00" 
+              value="{{originalPrice}}" 
+              bindinput="onOriginalPriceInput"
+            />
+          </view>
+        </view>
+      </view>
+      
+      <!-- 功能按钮区域 -->
+      <view class="button-group">
+        <button class="camera-btn" bindtap="onTakePhoto">
+          <image class="btn-icon" src="https://via.placeholder.com/60x60/34A853/ffffff?text=Cam" mode="aspectFit"></image>
+          <text>拍照上传</text>
+        </button>
+        <button class="ai-pricing-btn" bindtap="onAIPricing" disabled="{{!imagePath || !originalPrice}}">
+          <image class="btn-icon" src="https://via.placeholder.com/60x60/FF6B35/ffffff?text=AI" mode="aspectFit"></image>
+          <text>智能定价</text>
+        </button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- AI定价结果及商品信息模块 -->
+  <view class="result-section" wx:if="{{showResult}}">
+    
+    <!-- AI定价结果 -->
+    <view class="result-group">
+      <view class="section-header">
+        <text class="section-title">AI定价结果</text>
+        <text class="section-subtitle">基于图像分析和市场数据</text>
+      </view>
+      
+      <view class="pricing-result">
+        <view class="price-display">
+          <text class="price-label">建议价格</text>
+          <text class="price-value">¥{{suggestedPrice}}</text>
+        </view>
+        
+        <view class="price-details">
+          <view class="detail-item">
+            <text class="detail-label">商品成色</text>
+            <text class="detail-value">{{conditionLevel}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">市场参考</text>
+            <text class="detail-value">{{marketRange}}</text>
+          </view>
+          <view class="detail-item">
+            <text class="detail-label">AI评分</text>
+            <text class="detail-value">{{aiScore}}分</text>
+          </view>
+        </view>
+        
+        <view class="ai-analysis">
+          <text class="analysis-title">AI分析报告</text>
+          <text class="analysis-content">{{analysisReport}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- AI生成的商品信息 -->
+    <view class="product-info-group">
+      <view class="section-header">
+        <text class="section-title">AI智能识别</text>
+        <text class="section-subtitle">基于图像识别自动生成商品信息</text>
+      </view>
+      
+      <view class="product-info">
+        <view class="info-item">
+          <text class="info-label">商品名称</text>
+          <text class="info-value">{{productName}}</text>
+        </view>
+        
+        <view class="info-item">
+          <text class="info-label">商品类别</text>
+          <text class="info-value">{{productCategory}}</text>
+        </view>
+        
+        <view class="info-item">
+          <text class="info-label">商品描述</text>
+          <text class="info-description">{{productDescription}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 操作按钮 -->
+    <view class="action-buttons">
+      <button class="save-btn" bindtap="onSaveProduct">保存商品信息</button>
+      <button class="publish-btn" bindtap="onPublishProduct">立即发布</button>
+    </view>
+  </view>
+  
+  <!-- 加载状态 -->
+  <view class="loading-section" wx:if="{{isAnalyzing}}">
+    <view class="loading-content">
+      <image class="loading-icon" src="https://via.placeholder.com/80x80/4285F4/ffffff?text=AI" mode="aspectFit"></image>
+      <text class="loading-text">AI正在分析商品图片...</text>
+      <text class="loading-subtext">请稍候，这可能需要几秒钟</text>
+    </view>
+  </view>
+  
+</view>

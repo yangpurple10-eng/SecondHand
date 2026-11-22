@@ -1,0 +1,224 @@
+/* pages/profile/profile.wxss */
+
+page {
+  background-color: #f0f7ff;
+  height: 100%;
+}
+
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f0f7ff 0%, #eef5ff 100%);
+  padding-bottom: 100rpx;
+}
+
+/* 顶部用户信息区域 */
+.user-header {
+  background: linear-gradient(135deg, #5ba8ff 0%, #7ec8ff 100%);
+  padding: 40rpx 30rpx;
+  padding-top: 10rpx;
+  color: white;
+  margin-top: 0;
+  position: relative;
+}
+
+.user-avatar-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40rpx;
+}
+
+.user-avatar {
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  border: 4rpx solid rgba(255, 255, 255, 0.3);
+  margin-right: 30rpx;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.user-id, .user-level {
+  font-size: 24rpx;
+  opacity: 0.9;
+  display: block;
+  margin-bottom: 5rpx;
+}
+
+.user-stats {
+  display: flex;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.stat-item {
+  padding: 20rpx 0;
+}
+
+.stat-number {
+  font-size: 32rpx;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  opacity: 0.9;
+}
+
+/* 功能菜单区域 */
+.menu-section {
+  padding: 30rpx;
+}
+
+.menu-group {
+  background: #ffffff;
+  border-radius: 20rpx;
+  margin-bottom: 30rpx;
+  overflow: hidden;
+  box-shadow: 0 8rpx 24rpx rgba(91, 168, 255, 0.16);
+}
+
+.group-title {
+  display: block;
+  padding: 30rpx 30rpx 20rpx;
+  font-size: 28rpx;
+  font-weight: 800;
+  color: #2a4a7a;
+  border-bottom: 1rpx solid #eef2f7;
+}
+
+.menu-list {
+  padding: 0;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #f8f8f8;
+  transition: background-color 0.3s;
+}
+
+.menu-item:active {
+  background-color: #f8f8f8;
+}
+
+.menu-item:last-child {
+  border-bottom: none;
+}
+
+.menu-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.menu-text {
+  flex: 1;
+  font-size: 28rpx;
+  color: #3d4d66;
+}
+
+.menu-emoji {
+  font-size: 40rpx;
+  margin-right: 20rpx;
+  line-height: 1;
+}
+
+.menu-arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.menu-switch {
+  margin-left: auto;
+}
+
+/* 红点提醒样式 */
+.red-dot {
+  position: absolute;
+  top: 6rpx;
+  right: 6rpx;
+  width: 16rpx;
+  height: 16rpx;
+  background-color: #ff3b30;
+  border-radius: 50%;
+  box-shadow: 0 2rpx 6rpx rgba(255, 59, 48, 0.4);
+}
+
+.red-dot.menu {
+  right: 30rpx;
+  top: 30rpx;
+}
+
+/* 底部操作按钮 */
+.action-section {
+  padding: 30rpx;
+}
+
+.logout-btn {
+  width: 100%;
+  background: linear-gradient(135deg, #5ba8ff 0%, #4f8bff 100%);
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  padding: 30rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 8rpx 25rpx rgba(79, 139, 255, 0.25);
+}
+
+.logout-btn:active {
+  transform: translateY(2rpx);
+  box-shadow: 0 4rpx 15rpx rgba(79, 139, 255, 0.25);
+}
+
+/* 响应式调整 */
+@media (max-width: 750rpx) {
+  .user-header {
+    padding: 30rpx 20rpx;
+  }
+  
+  .user-avatar {
+    width: 100rpx;
+    height: 100rpx;
+  }
+  
+  .menu-section {
+    padding: 20rpx;
+  }
+  
+  .menu-item {
+    padding: 25rpx;
+  }
+}
+.chart-container { padding: 20rpx 30rpx; }
+.bar-chart { width: 100%; }
+.chart-bars { display: flex; justify-content: space-around; align-items: flex-end; height: 300rpx; padding: 20rpx 0; }
+.bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; height: 260rpx; }
+.bar-wrapper { width: 100%; height: 220rpx; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; }
+.bar { width: 60%; background: linear-gradient(180deg, #5ba8ff 0%, #4f8bff 100%); border-radius: 8rpx 8rpx 0 0; min-height: 4rpx; transition: all 0.3s ease; }
+.bar-value { position: absolute; top: -40rpx; font-size: 22rpx; color: #5e7ea6; font-weight: 600; }
+.bar-label { font-size: 22rpx; color: #5e7ea6; margin-top: 15rpx; }
+
+.line-chart { width: 100%; height: 300rpx; position: relative; }
+.chart-area { width: 100%; height: 100%; position: relative; }
+.chart-grid { position: absolute; top: 0; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; justify-content: space-between; }
+.grid-line { height: 1rpx; background: #e0e0e0; }
+.chart-line { position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
+.line-path { position: absolute; left: 0; right: 0; bottom: 0; height: 100%; }
+.line-point { position: absolute; width: 12rpx; height: 12rpx; background: #4f8bff; border-radius: 50%; box-shadow: 0 4rpx 12rpx rgba(79, 139, 255, 0.3); }
+.chart-labels { position: absolute; left: 0; right: 0; bottom: -36rpx; display: flex; justify-content: space-between; }
+.label-item { font-size: 20rpx; color: #5e7ea6; }
+.chart-values { position: absolute; left: 0; right: 0; top: 8rpx; display: flex; justify-content: space-between; }
+.value-item { font-size: 20rpx; color: #5e7ea6; }

@@ -1,0 +1,448 @@
+/* pages/publish/publish.wxss */
+
+.publish-container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.page-subtitle {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 通用区块样式 */
+.section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  margin-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  padding-bottom: 15rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 商品图片预览 */
+.image-preview {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300rpx;
+  background-color: #f8f9fa;
+  border-radius: 12rpx;
+  border: 2rpx dashed #ddd;
+}
+
+.product-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 12rpx;
+}
+
+.no-image {
+  text-align: center;
+}
+
+.no-image-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 商品信息 */
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 120rpx;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  text-align: right;
+  word-break: break-all;
+}
+
+.description-text {
+  line-height: 1.6;
+}
+
+/* 输入控件样式 */
+.info-input {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  text-align: right;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.category-picker {
+  flex: 1;
+}
+
+.picker-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.picker-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.picker-arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.description-textarea {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  min-height: 120rpx;
+  border: none;
+  outline: none;
+  background: transparent;
+  line-height: 1.6;
+}
+
+.placeholder {
+  color: #ccc;
+}
+
+/* 发布建议样式 */
+.recommend-section {
+  background: #f8fbff;
+}
+
+.recommend-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.recommend-message {
+  font-size: 26rpx;
+  color: #335;
+  line-height: 1.6;
+}
+
+.recommend-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.recommend-chip {
+  padding: 12rpx 22rpx;
+  background: #eef4ff;
+  border: 1rpx solid #dbe7ff;
+  border-radius: 999rpx;
+}
+
+.chip-text {
+  font-size: 24rpx;
+  color: #3b6efb;
+}
+
+/* 价格信息 */
+.price-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15rpx;
+}
+
+/* 未选择AI定价时的引导样式 */
+.price-empty {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  color: #999;
+}
+
+.ai-pricing-btn {
+  align-self: flex-start;
+}
+
+.price-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.price-label {
+  font-size: 26rpx;
+  color: #666;
+}
+
+.price-value {
+  font-size: 28rpx;
+  font-weight: bold;
+}
+
+.original-price {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.suggested-price {
+  color: #ff6b35;
+}
+
+.range-price {
+  color: #4285f4;
+}
+
+/* 商品状况 */
+.condition-group {
+  display: flex;
+  gap: 40rpx;
+}
+
+.condition-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+.condition-label {
+  font-size: 24rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.condition-value {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.score {
+  color: #ff6b35;
+}
+
+/* AI分析报告 */
+.report-container {
+  background: #f8f9ff;
+  border: 1rpx solid #e0e7ff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+}
+
+.report-text {
+  font-size: 24rpx;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* 发布设置 */
+.publish-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 25rpx;
+}
+
+.setting-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.setting-label {
+  font-size: 26rpx;
+  color: #666;
+  width: 140rpx;
+  flex-shrink: 0;
+}
+
+.price-input-container {
+  display: flex;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  height: 70rpx;
+  flex: 1;
+}
+
+.currency-symbol {
+  font-size: 26rpx;
+  color: #333;
+  margin-right: 10rpx;
+}
+
+.price-input {
+  flex: 1;
+  font-size: 26rpx;
+  color: #333;
+  height: 100%;
+}
+
+.contact-input {
+  flex: 1;
+  background: #f8f9fa;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  height: 70rpx;
+  font-size: 26rpx;
+  color: #333;
+}
+
+.picker {
+  flex: 1;
+}
+
+.picker-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  border-radius: 8rpx;
+  padding: 0 20rpx;
+  height: 70rpx;
+}
+
+.picker-text {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.picker-arrow {
+  font-size: 20rpx;
+  color: #999;
+}
+
+.placeholder {
+  color: #ccc;
+}
+
+/* 交易地点 */
+.location-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.selected-location {
+  background: #f8f9fa;
+  border: 1rpx solid #e0e0e0;
+  border-radius: 8rpx;
+  padding: 16rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+.loc-name { font-size: 26rpx; color: #333; }
+.loc-addr { font-size: 24rpx; color: #666; }
+
+.location-auto {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  border: 1rpx dashed #e0e0e0;
+  border-radius: 8rpx;
+  padding: 12rpx 16rpx;
+}
+
+.location-tip {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.privacy-note {
+  font-size: 22rpx;
+  color: #999;
+}
+
+/* 发布按钮 */
+.publish-actions {
+  margin-top: 40rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.publish-btn {
+  background: linear-gradient(135deg, #FF6B35, #4285F4);
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  height: 80rpx;
+  font-size: 28rpx;
+  font-weight: bold;
+  box-shadow: 0 4rpx 20rpx rgba(255, 107, 53, 0.3);
+}
+
+.publish-btn.disabled {
+  background: #ccc;
+  box-shadow: none;
+}
+
+.back-btn {
+  background: white;
+  color: #666;
+  border: 1rpx solid #ddd;
+  border-radius: 50rpx;
+  height: 80rpx;
+  font-size: 28rpx;
+}
+
+/* 响应式调整 */
+@media (max-width: 750rpx) {
+  .publish-container {
+    padding: 15rpx;
+  }
+  
+  .section {
+    padding: 20rpx;
+  }
+  
+  .condition-group {
+    flex-direction: column;
+    gap: 20rpx;
+  }
+}

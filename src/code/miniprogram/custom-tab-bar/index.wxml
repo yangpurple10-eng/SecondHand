@@ -1,0 +1,22 @@
+<view class="tab-bar">
+  <view class="tab-item {{selected === 0 ? 'active' : ''}}" data-index="0" bindtap="onTabTap">
+    <text class="tab-icon-emoji">🏠</text>
+    <text class="tab-text">首页</text>
+  </view>
+  <view class="tab-item {{selected === 1 ? 'active' : ''}}" data-index="1" bindtap="onTabTap">
+    <text class="tab-icon-emoji">🗺️</text>
+    <text class="tab-text">藏宝图</text>
+  </view>
+  <view class="tab-item {{selected === 2 ? 'active' : ''}}" data-index="2" bindtap="onTabTap">
+    <text class="tab-icon-emoji">🛒</text>
+    <text class="tab-text">购物车</text>
+  </view>
+  <view class="tab-item {{selected === 3 ? 'active' : ''}}" data-index="3" bindtap="onTabTap">
+    <text class="tab-icon-emoji">📨</text>
+    <text class="tab-text">消息</text>
+  </view>
+  <view class="tab-item {{selected === 4 ? 'active' : ''}}" data-index="4" bindtap="onTabTap">
+    <text class="tab-icon-emoji">👤</text>
+    <text class="tab-text">我的</text>
+  </view>
+</view>

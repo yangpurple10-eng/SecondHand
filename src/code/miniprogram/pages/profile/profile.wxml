@@ -1,0 +1,121 @@
+<!--pages/profile/profile.wxml-->
+<view class="page-container">
+  <!-- 顶部用户信息区域 -->
+  <view class="user-header">
+    <view class="user-avatar-section">
+  <image class="user-avatar" src="{{userInfo.avatar || '/images/更多犬种.png'}}" mode="aspectFit"></image>
+      <view class="user-info">
+        <text class="user-name">{{userInfo.nickName || '未设置昵称'}}</text>
+        <text class="user-id">ID: {{userInfo.id || '未设置'}}</text>
+        <text class="user-level">会员等级: {{userInfo.level || '普通会员'}}</text>
+      </view>
+    </view>
+    <view class="user-stats">
+      <view class="stat-item" bindtap="onMyProducts">
+        <text class="stat-number">{{userStats.products || 0}}</text>
+        <text class="stat-label">我的商品</text>
+      </view>
+      <view class="stat-item" bindtap="onMyWanted">
+        <text class="stat-number">{{userStats.wanted || 0}}</text>
+        <text class="stat-label">我的求购</text>
+      </view>
+      <view class="stat-item" bindtap="onMyOrders" style="position: relative;">
+        <text class="stat-number">{{userStats.orders || 0}}</text>
+        <text class="stat-label">我的订单</text>
+        <view class="red-dot" wx:if="{{hasOrderAlert}}"></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能菜单区域 -->
+  <view class="menu-section">
+    <view class="menu-group">
+      <text class="group-title">交易管理</text>
+      <view class="menu-list">
+        <view class="menu-item" bindtap="onMyProducts">
+          <text class="menu-emoji">👜</text>
+          <text class="menu-text">我的商品</text>
+          <text class="menu-arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onMyWanted">
+          <text class="menu-emoji">📝</text>
+          <text class="menu-text">我的求购</text>
+          <text class="menu-arrow">></text>
+        </view>
+        <view class="menu-item" bindtap="onMyOrders" style="position: relative;">
+          <text class="menu-emoji">📦</text>
+          <text class="menu-text">我的订单</text>
+          <text class="menu-arrow">></text>
+          <view class="red-dot menu" wx:if="{{hasOrderAlert}}"></view>
+        </view>
+        <view class="menu-item" bindtap="onMyFavorites">
+          <text class="menu-emoji">❤️</text>
+          <text class="menu-text">我的收藏</text>
+          <text class="menu-arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-group">
+      <text class="group-title">账户设置</text>
+      <view class="menu-list">
+        <view class="menu-item" bindtap="onProfileEdit">
+          <text class="menu-emoji">👤</text>
+          <text class="menu-text">个人信息</text>
+          <text class="menu-arrow">></text>
+        </view>
+      </view>
+    </view>
+
+    
+  </view>
+
+  <!-- 图表分析 -->
+  <view class="menu-section">
+    <view class="menu-group">
+      <text class="group-title">发布趋势（近12个月）</text>
+      <view class="chart-container">
+        <view class="bar-chart">
+          <view class="chart-bars">
+            <view class="bar-item" wx:for="{{monthlyPosted}}" wx:key="month">
+              <view class="bar-wrapper">
+                <view class="bar" style="height: {{item.percentage}}%"></view>
+                <text class="bar-value">{{item.count}}</text>
+              </view>
+              <text class="bar-label">{{item.month}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-group">
+      <text class="group-title">购买趋势（近12个月）</text>
+      <view class="chart-container">
+        <view class="line-chart">
+          <view class="chart-area">
+            <view class="chart-grid">
+              <view class="grid-line" wx:for="{{5}}" wx:key="index"></view>
+            </view>
+            <view class="chart-line">
+              <view class="line-path">
+                <view class="line-point" wx:for="{{monthlyPurchased}}" wx:key="month" style="left: {{item.position}}%; bottom: {{item.percentage}}%"></view>
+              </view>
+            </view>
+            <view class="chart-labels">
+              <text class="label-item" wx:for="{{monthlyPurchased}}" wx:key="month">{{item.month}}</text>
+            </view>
+            <view class="chart-values">
+              <text class="value-item" wx:for="{{monthlyPurchased}}" wx:key="month">{{item.sales}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部操作按钮 -->
+  <view class="action-section">
+    <button class="logout-btn" bindtap="onLogout">退出登录</button>
+  </view>
+</view>

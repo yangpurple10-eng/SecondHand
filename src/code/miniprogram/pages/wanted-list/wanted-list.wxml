@@ -1,0 +1,89 @@
+<!--pages/wanted-list/wanted-list.wxml-->
+<view class="page-container">
+  <!-- 搜索栏 -->
+  <view class="search-section">
+    <view class="search-bar">
+<image class="search-icon" src="/images/边牧.png" mode="aspectFit"></image>
+      <input 
+        class="search-input" 
+        placeholder="搜索求购信息" 
+        value="{{searchText}}"
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+      />
+    </view>
+  </view>
+
+  <!-- 求购列表 -->
+  <scroll-view 
+    class="wanted-list-container" 
+    scroll-y="true"
+    refresher-enabled="{{true}}"
+    refresher-triggered="{{refreshing}}"
+    bindrefresherrefresh="onRefresh"
+    bindscrolltolower="onLoadMore"
+  >
+    <view class="wanted-list">
+      <view 
+        class="wanted-card" 
+        wx:for="{{wantedList}}" 
+        wx:key="_id"
+        bindtap="onWantedTap"
+        data-id="{{item._id}}"
+      >
+        <view class="card-header">
+          <text class="wanted-title">{{item.productName}}</text>
+          <text class="wanted-category">{{item.productCategory}}</text>
+        </view>
+        
+        <text class="wanted-description" wx:if="{{item.description}}">{{item.description}}</text>
+        
+        <view class="wanted-details">
+          <view class="detail-row">
+            <text class="detail-label">预算价格：</text>
+            <text class="detail-value price">¥{{item.expectedPrice || 0}}</text>
+          </view>
+          <view class="detail-row" wx:if="{{item.conditionLevel}}">
+            <text class="detail-label">成色要求：</text>
+            <text class="detail-value">{{item.conditionLevel}}</text>
+          </view>
+          <view class="detail-row" wx:if="{{item.expectedBrand}}">
+            <text class="detail-label">期望品牌：</text>
+            <text class="detail-value">{{item.expectedBrand}}</text>
+          </view>
+        </view>
+        
+        <view class="card-footer">
+          <view class="footer-left">
+            <text class="wanted-time">{{item.formattedTime}}</text>
+            <text class="wanted-views">👁 {{item.viewCount || 0}}</text>
+          </view>
+          <view class="contact-info">
+            <text class="contact-name">{{item.contactName}}</text>
+          </view>
+        </view>
+      </view>
+      
+      <!-- 空状态 -->
+      <view class="empty-state" wx:if="{{wantedList.length === 0 && !loading}}">
+        <text class="empty-text">暂无求购信息</text>
+      </view>
+      
+      <!-- 加载更多 -->
+      <view class="load-more" wx:if="{{hasMore && !loading}}">
+        <text>加载更多...</text>
+      </view>
+      
+      <!-- 没有更多 -->
+      <view class="no-more" wx:if="{{!hasMore && wantedList.length > 0}}">
+        <text>没有更多了</text>
+      </view>
+    </view>
+  </scroll-view>
+  
+  <!-- 加载中 -->
+  <view class="loading-container" wx:if="{{loading && wantedList.length === 0}}">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>
+

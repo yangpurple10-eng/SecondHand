@@ -1,0 +1,57 @@
+<view class="chat-page">
+  <view class="chat-topbar">
+    <view class="back" bindtap="goBack">返回</view>
+    <text class="title">聊天</text>
+    <view class="more"></view>
+  </view>
+
+  <!-- 消息列表 -->
+  <scroll-view class="messages" scroll-y="true" scroll-with-animation="true" scroll-into-view="{{scrollInto}}">
+    <view class="load-more" bindtap="loadMore">加载更多</view>
+    <view class="sys-info">
+      <image class="avatar" src="{{peer.avatar || 'https://via.placeholder.com/80x80/cccccc/ffffff?text=U'}}" mode="aspectFill" />
+      <view class="peer-info">
+        <text class="name">{{peer.name || '对话'}}</text>
+        <text class="tip">与对方实时沟通，支持文字和图片</text>
+      </view>
+    </view>
+    <block wx:for="{{messages}}" wx:key="_id">
+      <view class="time-line">{{item.timeText}}</view>
+      <block wx:if="{{item.isRevoked || item.contentType === 'revoke' || item.isSystem || item.contentType === 'system' || item.contentType === 'error'}}">
+        <view class="sys-row">
+          <view class="sys-tip {{item.contentType === 'error' ? 'error' : (item.contentType === 'revoke' ? 'revoked' : '')}}">
+            <text>{{item.contentType === 'revoke' ? '对方撤回一条消息' : (item.content || '[系统消息]')}}</text>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+      <view class="msg {{item.fromUserId ? (item.fromUserId === myUserId ? 'mine' : 'other') : (item.fromOpenId === myOpenId ? 'mine' : 'other')}}" id="msg-{{item._id}}" bindlongpress="onMessageLongPress" data-id="{{item._id}}" data-mine="{{item.fromUserId ? (item.fromUserId === myUserId) : (item.fromOpenId === myOpenId)}}">
+        <image class="msg-avatar" src="{{item.fromUserId ? (item.fromUserId === myUserId ? myAvatar : peer.avatar) : (item.fromOpenId === myOpenId ? myAvatar : peer.avatar)}}" mode="aspectFill" />
+        <view class="bubble">
+          <block wx:if="{{item.contentType === 'text'}}">
+            <text class="text">{{item.content}}</text>
+          </block>
+          <block wx:elif="{{item.contentType === 'image'}}">
+            <image class="image" src="{{item.imageUrl || item.content}}" mode="aspectFill" bindtap="previewImage" data-url="{{item.imageUrl || item.content}}" />
+          </block>
+        </view>
+      </view>
+      </block>
+    </block>
+    <view id="bottom-anchor"></view>
+  </scroll-view>
+
+  <!-- 底部输入栏 -->
+  <view class="draft-row" wx:if="{{textInput}}">
+    <view class="draft-tip">{{textInput}}</view>
+  </view>
+  <view class="input-bar">
+    <view class="input-top">
+      <textarea class="text-input" placeholder="输入消息" value="{{textInput}}" show-confirm-bar="false" bindinput="onTextInput" />
+    </view>
+    <view class="input-bottom">
+      <button class="circle-btn left-btn" bindtap="chooseImage" loading="{{uploading}}" disabled="{{uploading}}">🖼️</button>
+      <button class="circle-btn send-circle right-btn" bindtap="sendText" disabled="{{sending}}">发送</button>
+    </view>
+  </view>
+</view>

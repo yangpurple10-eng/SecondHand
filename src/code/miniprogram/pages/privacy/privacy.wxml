@@ -1,0 +1,53 @@
+<!--pages/privacy/privacy.wxml-->
+<view class="page-container">
+  <view class="menu-section">
+    <view class="menu-group">
+      <text class="group-title">隐私信息</text>
+      <view class="menu-list">
+        <view class="menu-item">
+          <text class="menu-text">显示手机号</text>
+          <text class="menu-desc">其他用户可以看到您的手机号</text>
+          <view class="menu-switch">
+            <switch checked="{{showPhone}}" bindchange="onShowPhoneChange" color="#667eea" />
+          </view>
+        </view>
+        <view class="menu-item">
+          <text class="menu-text">显示邮箱</text>
+          <text class="menu-desc">其他用户可以看到您的邮箱</text>
+          <view class="menu-switch">
+            <switch checked="{{showEmail}}" bindchange="onShowEmailChange" color="#667eea" />
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="menu-group">
+      <text class="group-title">推荐与搜索</text>
+      <view class="menu-list">
+        <view class="menu-item">
+          <text class="menu-text">允许被搜索</text>
+          <text class="menu-desc">允许其他用户通过搜索找到您</text>
+          <view class="menu-switch">
+            <switch checked="{{allowSearch}}" bindchange="onAllowSearchChange" color="#667eea" />
+          </view>
+        </view>
+        <view class="menu-item">
+          <text class="menu-text">允许推荐</text>
+          <text class="menu-desc">系统可以根据您的兴趣推荐商品</text>
+          <view class="menu-switch">
+            <switch checked="{{allowRecommend}}" bindchange="onAllowRecommendChange" color="#667eea" />
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 隐私提示 -->
+  <view class="tips-section">
+    <view class="tips-title">隐私说明</view>
+    <view class="tips-item">• 我们会严格保护您的隐私信息</view>
+    <view class="tips-item">• 您可以根据需要调整隐私设置</view>
+    <view class="tips-item">• 关闭某些设置可能会影响部分功能的使用</view>
+  </view>
+</view>
+

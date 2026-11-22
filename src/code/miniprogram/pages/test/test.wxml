@@ -1,0 +1,39 @@
+<!-- test.wxml -->
+<view class="container">
+  <view class="header">
+    <text class="title">数据库测试页面</text>
+    <text class="subtitle">用于检查云数据库状态和测试登录功能</text>
+  </view>
+
+  <view class="section">
+    <text class="section-title">数据库状态</text>
+    <view class="status-box">
+      <text class="status-text">{{dbStatus}}</text>
+      <text class="user-count">用户数量: {{userCount}}</text>
+    </view>
+    <button class="btn" bindtap="checkDatabase">刷新状态</button>
+  </view>
+
+  <view class="section" wx:if="{{userList.length > 0}}">
+    <text class="section-title">用户列表</text>
+    <view class="user-list">
+      <view class="user-item" wx:for="{{userList}}" wx:key="_id">
+        <text class="user-info">学号: {{item.sno}} | 姓名: {{item.sname}} | 手机: {{item.phone}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="section">
+    <text class="section-title">测试操作</text>
+    <button class="btn primary" bindtap="addTestUser">添加测试用户</button>
+    <button class="btn success" bindtap="testLogin">测试登录</button>
+    <button class="btn" bindtap="goToLogin">前往登录页面</button>
+  </view>
+
+  <view class="section" wx:if="{{testResult}}">
+    <text class="section-title">测试结果</text>
+    <view class="result-box">
+      <text class="result-text">{{testResult}}</text>
+    </view>
+  </view>
+</view>

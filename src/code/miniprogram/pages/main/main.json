@@ -1,0 +1,7 @@
+{
+  "usingComponents": {},
+  "navigationBarTitleText": "校园二手交易",
+  "navigationBarBackgroundColor": "#4f8bff",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true
+}

@@ -1,0 +1,227 @@
+<!--pages/publish/publish.wxml-->
+<view class="publish-container">
+
+
+  <!-- 商品图片预览 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">商品图片</text>
+      <button 
+        type="primary" 
+        size="mini" 
+        bindtap="onUploadImage"
+        class="upload-btn"
+        wx:if="{{!fromAIPricing}}"
+      >
+        上传图片
+      </button>
+    </view>
+    <view class="image-preview">
+      <image 
+        src="{{productImage}}" 
+        mode="aspectFill" 
+        class="product-image"
+        wx:if="{{productImage}}"
+      />
+      <view class="no-image" wx:else>
+        <text class="no-image-text">暂无图片</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品基本信息 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">商品信息</text>
+    </view>
+    <view class="info-group">
+      <view class="info-item">
+        <text class="info-label">商品名称</text>
+        <input 
+          type="text" 
+          placeholder="请输入商品名称" 
+          value="{{productName}}" 
+          bindinput="onProductNameInput"
+          class="info-input"
+          placeholder-class="placeholder"
+        />
+      </view>
+      <view class="info-item">
+        <text class="info-label">商品类别</text>
+        <picker 
+          range="{{categories}}" 
+          value="{{categoryIndex}}" 
+          bindchange="onCategoryChange"
+          class="category-picker"
+        >
+          <view class="picker-display">
+            <text class="picker-text">{{categories[categoryIndex] || '请选择商品类别'}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+      <view class="info-item">
+        <text class="info-label">商品描述</text>
+        <textarea 
+          placeholder="请输入商品描述" 
+          value="{{productDescription}}" 
+          bindinput="onDescriptionInput"
+          class="description-textarea"
+          placeholder-class="placeholder"
+          maxlength="200"
+          auto-height
+        />
+      </view>
+    </view>
+  </view>
+
+  <!-- 发布建议（基于分类供需） -->
+  <view class="section recommend-section" wx:if="{{recommendedCategories.length > 0 || recommendMessage}}">
+    <view class="section-header">
+      <text class="section-title">发布建议</text>
+    </view>
+    <view class="recommend-content">
+      <text class="recommend-message">{{recommendMessage || '暂无建议'}}</text>
+      <view class="recommend-chips">
+        <view class="recommend-chip" wx:for="{{recommendedCategories}}" wx:key="cat" bindtap="onSelectRecommendedCategory" data-category="{{item}}">
+          <text class="chip-text">{{item}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 价格信息 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">价格信息</text>
+    </view>
+    <!-- 当来自AI定价或已有建议数据时显示价格信息 -->
+    <view class="price-group" wx:if="{{showPriceInfo}}">
+      <view class="price-item">
+        <text class="price-label">原价</text>
+        <text class="price-value original-price">¥{{originalPrice}}</text>
+      </view>
+      <view class="price-item">
+        <text class="price-label">AI建议价格</text>
+        <text class="price-value suggested-price">¥{{suggestedPrice}}</text>
+      </view>
+      <view class="price-item">
+        <text class="price-label">价格范围</text>
+        <text class="price-value range-price">{{priceRange}}</text>
+      </view>
+    </view>
+    <!-- 未选择AI定价时显示引导与按钮 -->
+    <view class="price-empty" wx:else>
+      <text class="empty-tip">未选择AI定价，点击进行智能定价</text>
+      <button type="primary" size="mini" bindtap="goToAIPricing" class="ai-pricing-btn">去AI定价</button>
+    </view>
+  </view>
+
+  <!-- 商品状况 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">商品状况</text>
+    </view>
+    <view class="condition-group">
+      <view class="condition-item">
+        <text class="condition-label">成色</text>
+        <text class="condition-value">{{conditionLevel}}</text>
+      </view>
+      <view class="condition-item">
+        <text class="condition-label">AI评分</text>
+        <text class="condition-value score">{{aiScore}}分</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- AI分析报告 -->
+  <view class="section" wx:if="{{analysisReport}}">
+    <view class="section-header">
+      <text class="section-title">AI分析报告</text>
+    </view>
+    <view class="report-container">
+      <text class="report-text">{{analysisReport}}</text>
+    </view>
+  </view>
+
+  <!-- 发布设置 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">发布设置</text>
+    </view>
+    <view class="publish-settings">
+      <view class="setting-item">
+        <text class="setting-label">商品售价</text>
+        <view class="price-input-container">
+          <text class="currency-symbol">¥</text>
+          <input 
+            type="digit" 
+            placeholder="请输入售价" 
+            value="{{salePrice}}" 
+            bindinput="onSalePriceInput"
+            class="price-input"
+            placeholder-class="placeholder"
+          />
+        </view>
+      </view>
+      <view class="setting-item">
+        <text class="setting-label">联系方式</text>
+        <input 
+          type="text" 
+          placeholder="请输入手机号或微信号" 
+          value="{{contactInfo}}" 
+          bindinput="onContactInput"
+          class="contact-input"
+          placeholder-class="placeholder"
+        />
+      </view>
+      <view class="setting-item">
+        <text class="setting-label">交易方式</text>
+        <picker 
+          range="{{tradeMethods}}" 
+          value="{{tradeMethodIndex}}" 
+          bindchange="onTradeMethodChange"
+          class="picker"
+        >
+          <view class="picker-display">
+            <text class="picker-text">{{tradeMethods[tradeMethodIndex]}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 交易地点 -->
+  <view class="section">
+    <view class="section-header">
+      <text class="section-title">交易地点</text>
+    </view>
+  <view class="location-settings">
+    <view class="setting-item">
+      <text class="setting-label">地图选点</text>
+      <button size="mini" type="default" bindtap="onChooseLocation">在地图上选点</button>
+    </view>
+    <view class="selected-location" wx:if="{{tradeLocation && tradeLocation.latitude}}">
+      <text class="loc-name">已选：{{tradeLocation.landmarkName || '地图选点'}}</text>
+      <text class="loc-addr">{{tradeAddress || '正在解析地址中…'}}</text>
+    </view>
+    <view class="privacy-note">
+      <text>为保护隐私，仅显示楼/区域级别，不含房间号</text>
+    </view>
+  </view>
+  </view>
+
+  <!-- 发布按钮 -->
+  <view class="publish-actions">
+    <button 
+      class="publish-btn {{isPublishing ? 'disabled' : ''}}" 
+      catchtap="onPublish"
+      disabled="{{isPublishing}}"
+      loading="{{isPublishing}}"
+    >
+      {{isPublishing ? (isEditMode ? '保存中...' : '发布中...') : (isEditMode ? '保存修改' : '确认发布')}}
+    </button>
+    <button class="back-btn" bindtap="onBack" disabled="{{isPublishing}}">返回修改</button>
+  </view>
+</view>

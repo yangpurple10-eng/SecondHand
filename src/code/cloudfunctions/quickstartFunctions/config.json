@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "openapi": [
+      "wxacode.get"
+    ]
+  },
+  "timeout": 300,
+  "envVariables": {
+    "QQMAP_KEY": "QBJBZ-E433N-DYYFX-SDC5E-EUB3V-MJBOE",
+    "QQMAP_KEYS": "7YTBZ-DTQHW-RPURE-YWKGQ-UTODK-RZFVP",
+    "QQMAP_REFERER": "https://servicewechat.com",
+    "QQMAP_SK": ""
+  }
+}

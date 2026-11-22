@@ -1,0 +1,155 @@
+<!-- 商品购买页面 -->
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <view class="search-input">
+      <icon type="search" size="30" class="search-icon"></icon>
+      <input 
+        type="text" 
+        placeholder="搜索商品名称、类别..." 
+        bindinput="onSearchInput"
+        bindconfirm="onSearch"
+        confirm-type="search"
+        value="{{searchKeyword}}"
+        class="search-field"
+      />
+      <view class="search-cancel" bindtap="onClearSearch" wx:if="{{searchKeyword}}">
+        <text>取消</text>
+      </view>
+      <button class="search-btn" bindtap="onSearch">搜索</button>
+    </view>
+  </view>
+
+  <!-- 筛选条件 -->
+  <view class="filter-bar">
+    <picker 
+      range="{{categories}}" 
+      value="{{selectedCategory}}" 
+      bindchange="onCategoryChange"
+      class="filter-item"
+    >
+      <view class="filter-display">
+        <text>{{categories[selectedCategory] || '全部分类'}}</text>
+        <icon type="arrow-down" size="12"></icon>
+      </view>
+    </picker>
+    
+    <picker 
+      range="{{priceRanges}}" 
+      value="{{selectedPriceRange}}" 
+      bindchange="onPriceRangeChange"
+      class="filter-item"
+    >
+      <view class="filter-display">
+        <text>{{priceRanges[selectedPriceRange] || '价格范围'}}</text>
+        <icon type="arrow-down" size="12"></icon>
+      </view>
+    </picker>
+    
+    <view class="filter-item" bindtap="onSortChange">
+      <view class="filter-display">
+        <text>{{sortOptions[selectedSort]}}</text>
+        <icon type="arrow-down" size="12"></icon>
+      </view>
+    </view>
+  </view>
+
+  <!-- 商品列表 -->
+  <scroll-view 
+    class="product-list" 
+    scroll-y 
+    bindscrolltolower="onReachBottom"
+    refresher-enabled="true"
+    bindrefresherrefresh="onRefresh"
+    refresher-triggered="{{refreshing}}"
+  >
+    <!-- 商品网格容器 -->
+    <view class="product-grid">
+      <!-- 商品卡片 -->
+      <view 
+        class="product-card" 
+        wx:for="{{filteredProducts}}" 
+        wx:key="id"
+        bindtap="onProductTap"
+        data-product="{{item}}"
+      >
+      <!-- 商品图片 -->
+      <view class="product-image-container">
+        <image 
+          src="{{item.image}}" 
+          mode="aspectFill" 
+          class="product-image"
+        />
+        <view class="product-status" wx:if="{{item.status === 'sold'}}">
+          <text>已售出</text>
+        </view>
+      </view>
+      
+      <!-- 商品信息 -->
+      <view class="product-info">
+        <!-- 卖家信息 -->
+        <view class="seller-info">
+          <image 
+            src="{{item.sellerAvatar}}" 
+            mode="aspectFill" 
+            class="seller-avatar"
+          />
+          <text class="seller-name">{{item.sellerName}}</text>
+          <view class="seller-rating" wx:if="{{item.sellerRating}}">
+            <text class="rating-text">{{item.sellerRating}}</text>
+            <icon type="star" size="12" class="star-icon"></icon>
+          </view>
+        </view>
+        
+        <!-- 商品标题 -->
+        <view class="product-title">
+          <text class="title-text">{{item.name}}</text>
+        </view>
+        
+        <!-- 商品描述 -->
+        <view class="product-description">
+          <text class="description-text">{{item.description}}</text>
+        </view>
+        
+        <!-- 价格信息 -->
+        <view class="price-info">
+          <text class="current-price">¥{{item.price}}</text>
+          <text class="original-price" wx:if="{{item.originalPrice}}">¥{{item.originalPrice}}</text>
+          <view class="discount-badge" wx:if="{{item.discount}}">
+            <text>{{item.discount}}折</text>
+          </view>
+        </view>
+        
+        <!-- 商品标签 -->
+        <view class="product-tags">
+          <text class="tag category-tag">{{item.category}}</text>
+          <text class="tag condition-tag">{{item.condition}}</text>
+          <text class="tag location-tag">{{item.location}}</text>
+        </view>
+        
+        <!-- 发布时间 -->
+        <view class="publish-time">
+          <text class="time-text">{{item.publishTime}}</text>
+        </view>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 加载更多 -->
+    <view class="load-more" wx:if="{{hasMore}}">
+      <text>加载中...</text>
+    </view>
+    
+    <!-- 没有更多数据 -->
+    <view class="no-more" wx:if="{{!hasMore && filteredProducts.length > 0}}">
+      <text>没有更多商品了</text>
+    </view>
+    
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{filteredProducts.length === 0 && !loading}}">
+      <view class="empty-icon">📦</view>
+      <text class="empty-text">暂无商品</text>
+      <text class="empty-subtext">换个筛选条件试试</text>
+    </view>
+  </scroll-view>
+</view>

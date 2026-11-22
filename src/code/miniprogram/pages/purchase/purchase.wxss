@@ -1,0 +1,354 @@
+/* 发布求购页面样式 */
+.purchase-container {
+  padding: 20rpx;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+/* 页面标题 */
+.page-header {
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+.page-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.page-subtitle {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 通用区块样式 */
+.section {
+  background: white;
+  border-radius: 16rpx;
+  padding: 30rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.section-header {
+  margin-bottom: 20rpx;
+  border-bottom: 1rpx solid #f0f0f0;
+  padding-bottom: 15rpx;
+}
+
+.section-title {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 求购信息组 */
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.info-label {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 120rpx;
+}
+
+.info-value {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  text-align: right;
+  word-break: break-all;
+}
+
+/* 输入控件样式 */
+.info-input {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  text-align: right;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.category-picker {
+  flex: 1;
+}
+
+.picker-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10rpx 0;
+}
+
+.picker-text {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.picker-arrow {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.description-textarea {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  min-height: 120rpx;
+  border: none;
+  outline: none;
+  background: transparent;
+  line-height: 1.6;
+}
+
+.placeholder {
+  color: #ccc;
+}
+
+/* 求购要求组 */
+.requirement-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.requirement-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.requirement-label {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 120rpx;
+}
+
+/* 价格输入容器 */
+.price-input-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.currency-symbol {
+  font-size: 28rpx;
+  color: #333;
+  margin-right: 10rpx;
+}
+
+.price-input {
+  font-size: 28rpx;
+  color: #333;
+  border: none;
+  outline: none;
+  background: transparent;
+  text-align: right;
+  width: 200rpx;
+}
+
+.condition-picker {
+  flex: 1;
+}
+
+.brand-input, .model-input {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  text-align: right;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+/* 时间组 */
+.time-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.time-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.time-label {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 120rpx;
+}
+
+.date-picker, .validity-picker {
+  flex: 1;
+}
+
+/* 联系方式组 */
+.contact-group {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.contact-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #f0f0f0;
+}
+
+.contact-label {
+  font-size: 28rpx;
+  color: #666;
+  min-width: 120rpx;
+}
+
+.contact-input, .phone-input, .wechat-input {
+  font-size: 28rpx;
+  color: #333;
+  flex: 1;
+  text-align: right;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.trade-picker {
+  flex: 1;
+}
+
+/* 发布按钮 */
+.publish-actions {
+  display: flex;
+  gap: 20rpx;
+  margin-top: 40rpx;
+}
+
+.publish-btn {
+  flex: 2;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  padding: 25rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 4rpx 20rpx rgba(102, 126, 234, 0.3);
+}
+
+.publish-btn.disabled {
+  background: #ccc;
+  box-shadow: none;
+}
+
+.back-btn {
+  flex: 1;
+  background: #f8f9fa;
+  color: #666;
+  border: 1rpx solid #ddd;
+  border-radius: 50rpx;
+  padding: 25rpx;
+  font-size: 28rpx;
+}
+
+/* 特殊样式：求购页面特色 */
+.purchase-container .section {
+  border-left: 4rpx solid #667eea;
+}
+
+.purchase-container .section-header {
+  border-bottom-color: #e8ecff;
+}
+
+.purchase-container .section-title {
+  color: #667eea;
+}
+
+/* 发布建议样式 */
+.recommend-section {
+  margin-top: 10rpx;
+  background: #f8fbff;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  border: 1rpx solid #e6efff;
+}
+
+.recommend-message {
+  font-size: 26rpx;
+  color: #335;
+  line-height: 1.6;
+  margin-bottom: 16rpx;
+}
+
+.recommend-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.recommend-chip {
+  padding: 12rpx 22rpx;
+  background: #eef4ff;
+  border: 1rpx solid #dbe7ff;
+  border-radius: 999rpx;
+}
+
+.chip-text {
+  font-size: 24rpx;
+  color: #3b6efb;
+}
+
+/* 响应式调整 */
+@media (max-width: 375px) {
+  .purchase-container {
+    padding: 15rpx;
+  }
+  
+  .section {
+    padding: 20rpx;
+  }
+  
+  .info-item, .requirement-item, .time-item, .contact-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10rpx;
+  }
+  
+  .info-label, .requirement-label, .time-label, .contact-label {
+    min-width: auto;
+  }
+  
+  .info-input, .price-input, .brand-input, .model-input, 
+  .contact-input, .phone-input, .wechat-input {
+    text-align: left;
+    width: 100%;
+  }
+  
+  .price-input-container {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}

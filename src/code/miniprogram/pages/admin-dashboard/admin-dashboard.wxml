@@ -1,0 +1,220 @@
+<!--pages/admin-dashboard/admin-dashboard.wxml-->
+<view class="page-container">
+  <!-- 顶部导航栏 -->
+  <view class="admin-header">
+    <view class="header-content">
+      <text class="admin-title">管理后台</text>
+      <view class="admin-info" bindtap="onLogout">
+        <text class="admin-name">{{adminInfo.name || '管理员'}}</text>
+        <text class="logout-btn">退出</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <scroll-view class="scroll-container" scroll-y="true" refresher-enabled="{{true}}" refresher-triggered="{{refreshing}}" bindrefresherrefresh="onRefresh">
+    <!-- 数据概览 -->
+    <view class="stats-overview">
+      <view class="stat-card" bindtap="onNavigateTo" data-page="products">
+        <view class="stat-icon products">📦</view>
+        <view class="stat-content">
+          <text class="stat-value">{{stats.totalProducts}}</text>
+          <text class="stat-label">商品总数</text>
+        </view>
+      </view>
+      <view class="stat-card" bindtap="onNavigateTo" data-page="users">
+        <view class="stat-icon users">👥</view>
+        <view class="stat-content">
+          <text class="stat-value">{{stats.totalUsers}}</text>
+          <text class="stat-label">用户总数</text>
+        </view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-icon sales">💰</view>
+        <view class="stat-content">
+          <text class="stat-value">¥{{stats.totalSales}}</text>
+          <text class="stat-label">总销售额</text>
+        </view>
+      </view>
+      <view class="stat-card">
+        <view class="stat-icon orders">📋</view>
+        <view class="stat-content">
+          <text class="stat-value">{{stats.totalOrders}}</text>
+          <text class="stat-label">订单总数</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 供需缺口 Top N -->
+    <view class="chart-section">
+      <view class="section-header">
+        <text class="section-title">供需缺口 Top {{topNOptions[topNIndex]}}</text>
+        <text class="section-subtitle">全校区</text>
+      </view>
+      <view class="filters-row">
+        <picker range="{{topNOptions}}" value="{{topNIndex}}" bindchange="onTopNChange" class="filter-picker">
+          <view class="picker-display">
+            <text class="picker-text">Top {{topNOptions[topNIndex]}}</text>
+            <text class="picker-arrow">▼</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="gaps-list">
+        <view class="gap-item" wx:for="{{topGaps}}" wx:key="category">
+          <view class="gap-left">
+            <text class="gap-category">{{item.category}}</text>
+            <text class="gap-sub">供 {{item.supply}} · 需 {{item.demand}}</text>
+          </view>
+          <view class="gap-right">
+            <text class="gap-value {{item.gap >= 0 ? 'pos' : 'neg'}}">{{item.gap >= 0 ? ('缺口 +' + item.gap) : ('过供 ' + (item.gap))}}</text>
+          </view>
+        </view>
+        <view class="empty-tips" wx:if="{{!gapsLoading && topGaps.length === 0}}">暂无数据</view>
+      </view>
+
+      <view class="push-row">
+        <button class="push-btn" loading="{{pushInProgress}}" disabled="{{pushInProgress}}" bindtap="onPushRecommendation">一键推送建议</button>
+      </view>
+    </view>
+
+    <!-- 月度商品发布量统计 -->
+    <view class="chart-section">
+      <view class="section-header">
+        <text class="section-title">月度商品发布量</text>
+        <text class="section-subtitle">最近6个月</text>
+      </view>
+      <view class="chart-container">
+        <view class="bar-chart">
+          <view class="chart-bars">
+            <view class="bar-item" wx:for="{{monthlyProducts}}" wx:key="month">
+              <view class="bar-wrapper">
+                <view class="bar" style="height: {{item.percentage}}%"></view>
+                <text class="bar-value">{{item.count}}</text>
+              </view>
+              <text class="bar-label">{{item.month}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 月度销售额统计 -->
+    <view class="chart-section">
+      <view class="section-header">
+        <text class="section-title">月度销售额</text>
+        <text class="section-subtitle">最近6个月</text>
+      </view>
+      <view class="chart-container">
+        <view class="line-chart">
+          <view class="chart-area">
+            <view class="chart-grid">
+              <view class="grid-line" wx:for="{{5}}" wx:key="index"></view>
+            </view>
+            <view class="chart-line">
+              <view class="line-path">
+                <view class="line-point" wx:for="{{monthlySales}}" wx:key="month" style="left: {{item.position}}%; bottom: {{item.percentage}}%"></view>
+              </view>
+            </view>
+            <view class="chart-labels">
+              <text class="label-item" wx:for="{{monthlySales}}" wx:key="month">{{item.month}}</text>
+            </view>
+            <view class="chart-values">
+              <text class="value-item" wx:for="{{monthlySales}}" wx:key="month">¥{{item.sales}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 商品分类统计 -->
+    <view class="chart-section">
+      <view class="section-header">
+        <text class="section-title">商品分类分布</text>
+      </view>
+      <view class="pie-chart-container">
+        <view class="pie-chart">
+          <view class="pie-item" wx:for="{{categoryStats}}" wx:key="category">
+            <view class="pie-segment" style="background: {{item.color}}; width: {{item.percentage}}%"></view>
+            <view class="pie-label">
+              <view class="label-color" style="background: {{item.color}}"></view>
+              <text class="label-text">{{item.category}}: {{item.count}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 求购关键词词云 -->
+    <view class="chart-section">
+      <view class="section-header">
+        <text class="section-title">求购关键词词云</text>
+        <text class="section-subtitle">按出现频次加权</text>
+      </view>
+      <view wx:if="{{keywordsLoading}}" class="word-cloud-loading">加载词云...</view>
+      <view wx:else class="word-cloud">
+        <block wx:for="{{keywordsDisplay}}" wx:key="text">
+          <text class="word-chip" style="{{item.style}}">{{item.text}}</text>
+        </block>
+        <view class="empty-tips" wx:if="{{!keywordsDisplay.length}}">暂无关键词</view>
+      </view>
+    </view>
+
+    <!-- 数据工具：地标同步 -->
+    <view class="chart-section">
+      <view class="section-header">
+        <text class="section-title">数据工具</text>
+        <text class="section-subtitle">地标与地图</text>
+      </view>
+      <view class="filters-row">
+        <view class="filter-item">
+          <text class="filter-label">试运行</text>
+          <switch checked="{{syncDryRun}}" bindchange="onSyncDryRunToggle"></switch>
+        </view>
+        <view class="filter-item">
+          <text class="filter-label">Limit</text>
+          <input class="filter-input" type="number" placeholder="300" value="{{syncLimit}}" bindinput="onSyncLimitInput"/>
+        </view>
+      </view>
+      <view class="push-row">
+        <button class="push-btn" loading="{{syncLandmarksLoading}}" disabled="{{syncLandmarksLoading}}" bindtap="onSyncLandmarks">一键同步地标</button>
+      </view>
+      <view class="gaps-list" wx:if="{{syncResult}}">
+        <view class="gap-item">
+          <view class="gap-left">
+            <text class="gap-category">候选</text>
+            <text class="gap-sub">{{syncResult.candidateCount || 0}}</text>
+          </view>
+          <view class="gap-right">
+            <text class="gap-value pos">{{syncResult.upserted || 0}} 已写入</text>
+          </view>
+        </view>
+        <view class="empty-tips" wx:if="{{!syncResult.success}}">{{syncResult.error || '执行失败'}}</view>
+      </view>
+    </view>
+
+    <!-- 快捷操作 -->
+    <view class="quick-actions">
+      <view class="action-item" bindtap="onNavigateTo" data-page="products">
+        <text class="action-icon">📦</text>
+        <text class="action-text">商品管理</text>
+      </view>
+      <view class="action-item" bindtap="onNavigateTo" data-page="users">
+        <text class="action-icon">👥</text>
+        <text class="action-text">用户管理</text>
+      </view>
+      <view class="action-item" bindtap="onNavigateTo" data-page="orders">
+        <text class="action-icon">📋</text>
+        <text class="action-text">订单管理</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>
+
+<!-- 加载状态 -->
+<view class="loading-container" wx:if="{{loading}}">
+  <view class="loading-content">
+    <text class="loading-text">加载中...</text>
+  </view>
+</view>
+

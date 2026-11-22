@@ -1,0 +1,183 @@
+<!--register.wxml-->
+<view class="page-container">
+  <view class="register-container">
+    <!-- 顶部标题 -->
+    <view class="header">
+      <text class="title">用户注册</text>
+      <text class="subtitle">填写详细信息完成注册</text>
+    </view>
+    
+    <!-- 注册表单 -->
+    <view class="register-form">
+      <!-- 基本信息 -->
+      <view class="form-section">
+        <text class="section-title">基本信息</text>
+        
+        <view class="form-group">
+          <text class="label">学号</text>
+          <input 
+            class="input" 
+            type="number" 
+            placeholder="请输入学号" 
+            bindinput="onInputStudentId"
+            value="{{studentId}}"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="label">姓名</text>
+          <input 
+            class="input" 
+            type="text" 
+            placeholder="请输入真实姓名" 
+            bindinput="onInputName"
+            value="{{name}}"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="label">手机号</text>
+          <input 
+            class="input" 
+            type="number" 
+            placeholder="请输入手机号" 
+            bindinput="onInputPhone"
+            value="{{phone}}"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="label">密码</text>
+          <input 
+            class="input" 
+            type="password" 
+            placeholder="请设置登录密码（6-20位）" 
+            bindinput="onInputPassword"
+            value="{{password}}"
+            password
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="label">确认密码</text>
+          <input 
+            class="input" 
+            type="password" 
+            placeholder="请再次输入密码" 
+            bindinput="onInputConfirmPassword"
+            value="{{confirmPassword}}"
+            password
+          />
+        </view>
+      </view>
+      
+      <!-- 学校信息 -->
+      <view class="form-section">
+        <text class="section-title">学校信息</text>
+        
+        <view class="form-group">
+          <text class="label">学校</text>
+          <view class="fixed-school">
+            中国民航大学
+          </view>
+        </view>
+        
+        <view class="form-group">
+          <text class="label">学院（可选）</text>
+          <!-- 学院选择器 -->
+          <picker 
+            class="picker" 
+            range="{{departments}}" 
+            bindchange="onDepartmentChange"
+            value="{{departmentIndex}}"
+          >
+            <view class="picker-value">
+              {{departments[departmentIndex] || '请选择学院'}}
+            </view>
+          </picker>
+        </view>
+        
+        <view class="form-group">
+          <text class="label">专业（可选）</text>
+          <!-- 专业选择器 -->
+          <picker 
+            class="picker" 
+            range="{{majors[departmentIndex]}}" 
+            bindchange="onMajorChange"
+            value="{{majorIndex}}"
+          >
+            <view class="picker-value">
+              {{majors[departmentIndex] && majors[departmentIndex][majorIndex] ? majors[departmentIndex][majorIndex] : '请选择专业'}}
+            </view>
+          </picker>
+        </view>
+        
+        <view class="form-group">
+          <text class="label">年级</text>
+          <picker 
+            class="picker" 
+            range="{{grades}}" 
+            bindchange="onGradeChange"
+            value="{{gradeIndex}}"
+          >
+            <view class="picker-value">
+              {{grades[gradeIndex] || '请选择年级'}}
+            </view>
+          </picker>
+        </view>
+        
+        <view class="form-group">
+          <text class="label">宿舍楼</text>
+          <input 
+            class="input" 
+            type="text" 
+            placeholder="请输入宿舍楼号" 
+            bindinput="onInputDormBuilding"
+            value="{{dormBuilding}}"
+          />
+        </view>
+        
+        <view class="form-group">
+          <text class="label">宿舍号</text>
+          <input 
+            class="input" 
+            type="text" 
+            placeholder="请输入宿舍房间号" 
+            bindinput="onInputDormRoom"
+            value="{{dormRoom}}"
+          />
+        </view>
+      </view>
+      
+
+      
+      <!-- 协议 -->
+      <view class="agreement">
+        <checkbox 
+          class="checkbox" 
+          value="agreed"
+          checked="{{agreed}}" 
+          bindchange="onAgreementChange"
+        />
+        <text class="agreement-text">我已阅读并同意</text>
+        <text class="agreement-link" bindtap="onViewAgreement">《用户协议》</text>
+        <text class="agreement-text">和</text>
+        <text class="agreement-link" bindtap="onViewPrivacy">《隐私政策》</text>
+      </view>
+      
+      <!-- 注册按钮 -->
+      <button 
+        class="register-btn" 
+        bindtap="onRegister"
+      >
+        立即注册
+      </button>
+      
+      <!-- 已有账号 -->
+      <view class="login-link">
+        <text>已有账号？</text>
+        <text class="link" bindtap="onGoToLogin">立即登录</text>
+      </view>
+    </view>
+  </view>
+</view>

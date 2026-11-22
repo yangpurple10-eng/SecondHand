@@ -1,0 +1,222 @@
+/**register.wxss**/
+page {
+  height: 100vh;
+  background: #ffffff;
+}
+
+.page-container {
+  height: 100vh;
+  background: #ffffff;
+  padding: 40rpx;
+  box-sizing: border-box;
+}
+
+.register-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 头部样式 */
+.header {
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #333333;
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: #666666;
+  display: block;
+}
+
+/* 注册表单样式 */
+.register-form {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* 表单分区 */
+.form-section {
+  margin-bottom: 60rpx;
+}
+
+.section-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 24rpx;
+  display: block;
+}
+
+.section-subtitle {
+  font-size: 24rpx;
+  color: #999999;
+  margin-bottom: 24rpx;
+  display: block;
+}
+
+/* 表单组 */
+.form-group {
+  margin-bottom: 32rpx;
+}
+
+.label {
+  font-size: 28rpx;
+  color: #333333;
+  margin-bottom: 16rpx;
+  display: block;
+  font-weight: 500;
+}
+
+.input {
+  width: 100%;
+  height: 88rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+.input:focus {
+  border-color: #4285F4;
+  box-shadow: 0 0 0 4rpx rgba(66, 133, 244, 0.1);
+}
+
+/* 固定学校样式 */
+.fixed-school {
+  width: 100%;
+  height: 88rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  color: #666666;
+  font-weight: 500;
+}
+
+/* 选择器样式 */
+/* 确保选择器样式正确 */
+.picker {
+  width: 100%;
+  height: 88rpx;
+}
+
+.picker-value {
+  width: 100%;
+  height: 88rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+  padding: 0 24rpx;
+  font-size: 28rpx;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  color: #333333;
+}
+
+.picker-value::after {
+  content: '▼';
+  margin-left: auto;
+  font-size: 24rpx;
+  color: #999999;
+}
+
+/* 兴趣爱好标签 */
+.interest-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20rpx;
+  margin-top: 16rpx;
+}
+
+.tag {
+  padding: 16rpx 32rpx;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 24rpx;
+  font-size: 24rpx;
+  color: #666666;
+  background: #f8f9fa;
+  transition: all 0.3s ease;
+}
+
+.tag.selected {
+  border-color: #4285F4;
+  background: rgba(66, 133, 244, 0.1);
+  color: #4285F4;
+  font-weight: 500;
+}
+
+/* 协议样式 */
+.agreement {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin: 40rpx 0;
+  font-size: 24rpx;
+}
+
+.checkbox {
+  margin-right: 16rpx;
+}
+
+.agreement-text {
+  color: #666666;
+  margin-right: 8rpx;
+}
+
+.agreement-link {
+  color: #4285F4;
+  text-decoration: underline;
+}
+
+/* 注册按钮 */
+.register-btn {
+  width: 100%;
+  height: 96rpx;
+  background: linear-gradient(135deg, #4285F4, #3367D6);
+  border: none;
+  border-radius: 16rpx;
+  color: #ffffff;
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-bottom: 32rpx;
+  transition: all 0.3s ease;
+}
+
+.register-btn:active {
+  transform: scale(0.98);
+  opacity: 0.9;
+}
+
+.register-btn.disabled {
+  background: #cccccc;
+  color: #999999;
+  transform: none;
+  opacity: 0.6;
+}
+
+/* 登录链接 */
+.login-link {
+  text-align: center;
+  font-size: 28rpx;
+  color: #666666;
+}
+
+.link {
+  color: #4285F4;
+  font-weight: 500;
+  margin-left: 8rpx;
+}

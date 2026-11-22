@@ -1,0 +1,50 @@
+<view class="market-container">
+  <!-- 分类筛选（覆盖在地图上方） -->
+  <view class="filters">
+    <picker mode="selector" range="{{categories}}" value="{{categoryIndex}}" bindchange="onCategoryChange" class="filter-item">
+      <view class="filter-display">分类：{{categories[categoryIndex] || '全部'}}</view>
+    </picker>
+  </view>
+
+  <!-- 地图全屏展示 -->
+  <view class="map-wrapper">
+    <map id="marketMap" longitude="{{center.longitude}}" latitude="{{center.latitude}}"
+         scale="{{mapScale}}" markers="{{displayMarkers}}" show-location="true" circles="{{scanCircles}}"
+         bindmarkertap="onMarkerTap" bindregionchange="onRegionChange" style="width:100%;height:100%;">
+      <!-- 自定义气泡：商品缩略图 -->
+      <cover-view wx:if="{{mapRuntimeScale >= 16}}" wx:for="{{visibleProducts}}" wx:key="_id" marker-id="{{item._markerId}}" slot="callout" class="bubble" bindtap="onListTap" data-id="{{item._id}}">
+        <cover-image class="bubble-img" src="{{item.thumbUrl}}" mode="aspectFill" />
+      </cover-view>
+      <!-- 地标使用商品图片作为图标（覆盖在marker上），并按分类筛选 -->
+      <cover-view wx:if="{{mapRuntimeScale >= 16}}" wx:for="{{campusLandmarksForDisplay}}" wx:key="_markerId" marker-id="{{item._markerId}}" slot="callout" class="bubble" bindtap="onLandmarkBubbleTap" data-pid="{{item.firstProductId}}">
+        <cover-image class="bubble-img" src="{{item.thumbUrl}}" mode="aspectFill" />
+      </cover-view>
+    </map>
+    <view class="toolbar">
+      <picker mode="selector" range="{{scanRadiusLabels}}" value="{{scanRadiusIndex}}" bindchange="onScanRadiusChange" class="radius-picker">
+        <view class="radius-display">半径：{{scanRadiusLabels[scanRadiusIndex]}}</view>
+      </picker>
+      <button size="mini" bindtap="onResetCenter">回到我</button>
+      <button size="mini" bindtap="onGeoServiceCheck">诊断</button>
+      <button size="mini" bindtap="onBackfillLandmarkCategories">回填地标分类</button>
+      <button size="mini" type="primary" bindtap="onNearestScan">距我最近</button>
+    </view>
+  </view>
+
+  <!-- 1km内最近商品弹窗 -->
+  <view class="nearest-modal" wx:if="{{nearestModalVisible}}">
+    <view class="nearest-header">
+      <text class="nearest-title">{{nearestModalTitle}}</text>
+      <button size="mini" bindtap="onCloseNearestModal">关闭</button>
+    </view>
+    <scroll-view class="nearest-list" scroll-y="true">
+      <view class="nearest-item" wx:for="{{nearestProducts}}" wx:key="_id" bindtap="onListTap" data-id="{{item._id}}">
+        <image class="nearest-thumb" src="{{item.thumbUrl}}" mode="aspectFill"></image>
+        <view class="nearest-info">
+          <text class="nearest-name">{{item.productName || '商品'}}</text>
+          <text class="nearest-dist">{{item._distanceText || (item._distance || 0) + 'm'}}</text>
+        </view>
+      </view>
+    </scroll-view>
+  </view>
+</view>

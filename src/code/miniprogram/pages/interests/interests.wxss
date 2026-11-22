@@ -1,0 +1,318 @@
+/* pages/interests/interests.wxss */
+.page-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #7672fdff 0%, #9bc3ffff 100%);
+  padding: 40rpx 30rpx;
+  box-sizing: border-box;
+}
+
+.interests-container {
+  background: white;
+  border-radius: 20rpx;
+  padding: 40rpx 30rpx;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
+}
+
+/* 头部样式 */
+.header {
+  text-align: center;
+  margin-bottom: 50rpx;
+  padding-top: 20rpx;
+}
+
+.welcome-icon-wrapper {
+  width: 140rpx;
+  height: 140rpx;
+  margin: 0 auto 25rpx;
+  background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8rpx 20rpx rgba(66, 133, 244, 0.3);
+}
+
+.welcome-emoji {
+  font-size: 80rpx;
+  line-height: 1;
+}
+
+.title {
+  display: block;
+  font-size: 38rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15rpx;
+}
+
+.question {
+  display: block;
+  font-size: 32rpx;
+  color: #4285F4;
+  font-weight: 600;
+  margin-bottom: 10rpx;
+}
+
+.subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+/* 商品类别选择区域 */
+.interests-section {
+  margin-bottom: 40rpx;
+}
+
+.section-title {
+  display: block;
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.section-subtitle {
+  display: block;
+  font-size: 26rpx;
+  color: #999;
+  margin-bottom: 30rpx;
+}
+
+.interests-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+.interest-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border: 3rpx solid #e9ecef;
+  border-radius: 20rpx;
+  padding: 35rpx 20rpx;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.08);
+}
+
+.interest-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6rpx;
+  background: linear-gradient(90deg, #4285F4 0%, #34A853 50%, #EA4335 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.interest-card:active {
+  transform: scale(0.95);
+}
+
+.interest-card.selected {
+  background: linear-gradient(135deg, #4285F4 0%, #5C9FF7 100%);
+  border-color: #4285F4;
+  transform: translateY(-5rpx);
+  box-shadow: 0 12rpx 30rpx rgba(66, 133, 244, 0.4);
+}
+
+.interest-card.selected::before {
+  opacity: 1;
+}
+
+.interest-card.selected .interest-name,
+.interest-card.selected .interest-desc {
+  color: white;
+}
+
+.interest-card.selected .interest-icon-wrapper {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 12rpx 32rpx rgba(66, 133, 244, 0.4), 0 0 0 4rpx rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85)) !important;
+  animation: iconPulse 0.6s ease-out;
+}
+
+.interest-card.selected .interest-icon {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.98), rgba(255, 255, 255, 0.9)) !important;
+  transform: scale(1.2) rotate(-5deg);
+  box-shadow: 0 8rpx 24rpx rgba(66, 133, 244, 0.5), inset 0 2rpx 8rpx rgba(255, 255, 255, 0.5);
+  filter: drop-shadow(0 4rpx 8rpx rgba(66, 133, 244, 0.3));
+}
+
+@keyframes iconPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25) rotate(8deg);
+  }
+  100% {
+    transform: scale(1.15) rotate(5deg);
+  }
+}
+
+.interest-icon-wrapper {
+  width: 120rpx;
+  height: 120rpx;
+  margin: 0 auto 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28rpx;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+  box-shadow: 0 6rpx 20rpx rgba(0, 0, 0, 0.12);
+}
+
+.interest-icon-wrapper::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.1));
+  pointer-events: none;
+  border-radius: 28rpx;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.interest-card:active .interest-icon-wrapper::before {
+  opacity: 1;
+}
+
+.interest-icon {
+  width: 96rpx;
+  height: 96rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 56rpx;
+  line-height: 1;
+  text-align: center;
+  border-radius: 24rpx;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.15), inset 0 2rpx 4rpx rgba(255, 255, 255, 0.3);
+  position: relative;
+  z-index: 1;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.85));
+  backdrop-filter: blur(10rpx);
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Android Emoji", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.interest-name {
+  display: block;
+  font-size: 30rpx;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8rpx;
+  transition: color 0.3s ease;
+}
+
+.interest-desc {
+  display: block;
+  font-size: 24rpx;
+  color: #666;
+  transition: color 0.3s ease;
+}
+
+/* 选择提示 */
+.selection-hint {
+  background: linear-gradient(135deg, #e8f4fd 0%, #f0f9ff 100%);
+  border: 2rpx solid #b3e0ff;
+  border-radius: 15rpx;
+  padding: 25rpx;
+  margin-bottom: 30rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 12rpx rgba(0, 102, 204, 0.1);
+}
+
+.hint-text {
+  display: block;
+  font-size: 30rpx;
+  color: #0066cc;
+  font-weight: 600;
+  margin-bottom: 8rpx;
+}
+
+.hint-tip {
+  display: block;
+  font-size: 24rpx;
+  color: #666;
+  line-height: 1.6;
+}
+
+/* 底部操作按钮 */
+.action-buttons {
+  display: flex;
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.skip-btn {
+  flex: 1;
+  background: #f8f9fa;
+  color: #666;
+  border: 2rpx solid #e9ecef;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.confirm-btn {
+  flex: 1;
+  background: linear-gradient(135deg, #4285F4 0%, #34A853 100%);
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  font-weight: 600;
+  box-shadow: 0 8rpx 20rpx rgba(66, 133, 244, 0.3);
+  transition: all 0.3s ease;
+}
+
+.confirm-btn:active {
+  transform: scale(0.98);
+  box-shadow: 0 4rpx 12rpx rgba(66, 133, 244, 0.2);
+}
+
+.confirm-btn.disabled {
+  background: #e0e0e0;
+  color: #999;
+  box-shadow: none;
+}
+
+/* 进度提示 */
+.progress-hint {
+  text-align: center;
+  padding: 20rpx;
+}
+
+.progress-text {
+  font-size: 24rpx;
+  color: #999;
+}
+
+/* 空状态提示 */
+.empty-tip {
+  text-align: center;
+  padding: 60rpx 20rpx;
+  color: #999;
+  font-size: 28rpx;
+}

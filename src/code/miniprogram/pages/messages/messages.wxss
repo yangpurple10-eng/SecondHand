@@ -1,0 +1,14 @@
+.messages-page { display:flex; flex-direction:column; height:100vh; background:#f7f7f7; }
+.header { padding:20rpx; background:#fff; box-shadow:0 4rpx 12rpx rgba(0,0,0,0.05); }
+.title { font-size:30rpx; font-weight:600; color:#333; }
+.session-list { flex:1; }
+.session-item { display:flex; align-items:center; padding:20rpx; border-bottom:1rpx solid #eee; background:#fff; }
+.avatar { width:64rpx; height:64rpx; border-radius:50%; margin-right:16rpx; }
+.avatar-wrap { position: relative; margin-right:16rpx; }
+.badge { position:absolute; top:-4rpx; right:-4rpx; min-width:28rpx; height:28rpx; background:#ff3b30; color:#fff; border-radius:14rpx; font-size:20rpx; display:flex; align-items:center; justify-content:center; padding:0 8rpx; box-shadow:0 2rpx 6rpx rgba(255,59,48,0.4); }
+.info { flex:1; display:flex; flex-direction:column; }
+.row { display:flex; justify-content:space-between; align-items:center; }
+.name { font-size:28rpx; color:#333; font-weight:600; }
+.time { font-size:22rpx; color:#999; }
+.preview { font-size:24rpx; color:#666; margin-top:6rpx; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.empty { text-align:center; color:#999; padding:40rpx; }
